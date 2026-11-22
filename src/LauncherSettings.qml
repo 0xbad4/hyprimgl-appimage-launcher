@@ -1,9 +1,9 @@
 import QtQuick
 
 QtObject {
-    readonly property string title: "appimage-launcher"
-    readonly property int width: 430
-    readonly property int height: 300
+    readonly property string title: "hyprimgl"
+    readonly property int width: 420
+    readonly property int height: 320
     readonly property int padding: 10
     readonly property int searchHeight: 38
     readonly property int iconSize: 40
@@ -15,6 +15,7 @@ QtObject {
     readonly property string placeholder: "Search AppImages"
     readonly property bool closeOnLaunch: true
     readonly property bool closeOnEscape: true
+    readonly property bool closeOnFocusLoss: true
 
     readonly property color background: "#2e3440"
     readonly property color surface: "#3b4252"

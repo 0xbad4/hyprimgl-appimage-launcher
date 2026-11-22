@@ -3,7 +3,7 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC_DIR="$REPO_DIR/src"
-DEST="${XDG_CONFIG_HOME:-$HOME/.config}/quickshell/appimage-launcher"
+DEST="${XDG_CONFIG_HOME:-$HOME/.config}/quickshell/hyprimgl"
 BIN_DIR="${XDG_BIN_HOME:-$HOME/.local/bin}"
 RESET_SETTINGS=0
 ONLY_INSTRUCTIONS=0
@@ -34,7 +34,7 @@ Usage: ./install.sh [options]
 
   --dest DIR          install the Quickshell config to DIR
                       (default: ${DEST})
-  --bin-dir DIR       install the appimage-launcher command to DIR
+  --bin-dir DIR       install the hyprimgl command to DIR
                       (default: ${BIN_DIR})
   --reset-settings    overwrite an existing LauncherSettings.qml
   --instructions      only print the Hyprland Lua instructions
@@ -97,15 +97,15 @@ paint_lua() {
 }
 
 print_instructions() {
-    local bin="$BIN_DIR/appimage-launcher"
+    local bin="$BIN_DIR/hyprimgl"
     local snippet
     read -r -d '' snippet <<'LUA' || true
 -- ~/.config/hypr/hyprland.lua
 
 -- Floating search box (the title must match LauncherSettings.qml)
 hl.window_rule({
-    name  = "appimage-launcher",
-    match = { title = "^appimage-launcher$" },
+    name  = "hyprimgl",
+    match = { title = "^hyprimgl$" },
 
     float       = true,
     center      = true,
@@ -180,18 +180,18 @@ else
 fi
 
 q_dest="$(printf '%q' "$DEST")"
-cat > "$BIN_DIR/appimage-launcher" <<EOF
+cat > "$BIN_DIR/hyprimgl" <<EOF
 #!/usr/bin/env bash
 dest=$q_dest
 if command -v qs >/dev/null 2>&1; then qs_bin=qs; else qs_bin=quickshell; fi
-lock="\${XDG_RUNTIME_DIR:-/tmp}/appimage-launcher.lock"
+lock="\${XDG_RUNTIME_DIR:-/tmp}/hyprimgl.lock"
 if command -v flock >/dev/null 2>&1; then
     exec flock -n "\$lock" "\$qs_bin" -p "\$dest" "\$@"
 fi
 exec "\$qs_bin" -p "\$dest" "\$@"
 EOF
-chmod 0755 "$BIN_DIR/appimage-launcher"
-ok "command  $BIN_DIR/appimage-launcher"
+chmod 0755 "$BIN_DIR/hyprimgl"
+ok "command  $BIN_DIR/hyprimgl"
 
 case ":$PATH:" in
     *":$BIN_DIR:"*) ;;

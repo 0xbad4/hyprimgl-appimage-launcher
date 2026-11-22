@@ -29,7 +29,7 @@ EXTRACT_TIMEOUT = 15
 MAX_ICON_BYTES = 2 * 1024 * 1024
 CACHE_DIR = (
     Path(os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache")
-    / "appimage-launcher"
+    / "hyprimgl"
 )
 INDEX_FILE = CACHE_DIR / "index.json"
 

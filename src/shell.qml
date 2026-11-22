@@ -113,7 +113,14 @@ ShellRoot {
         Item {
             anchors.fill: parent
             focus: true
-            onActiveFocusChanged: if (!activeFocus) Qt.quit()
+            property bool hadFocus: false
+
+            Window.onActiveChanged: {
+                if (Window.active)
+                    hadFocus = true;
+                else if (hadFocus && cfg.closeOnFocusLoss)
+                    Qt.quit();
+            }
 
             Rectangle {
                 id: searchBox
